@@ -19,7 +19,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
-  mockLogin: () => void;
+  // mockLogin: () => void;
 }
 
 // Create the authentication context with a default value of null
@@ -41,15 +41,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const mockLogin = () => {
-    setUser({
-      googleId: 'mock-id',
-      email: 'dev@example.com',
-      name: 'Dev User',
-      imageUrl: '',
-      accessToken: 'mock-token',
-    });
-  };
+  // const mockLogin = () => {
+  //   setUser({
+  //     googleId: 'mock-id',
+  //     email: 'dev@example.com',
+  //     name: 'Dev User',
+  //     imageUrl: '',
+  //     accessToken: 'mock-token',
+  //   });
+  // };
 
   // Function to handle logout by clearing the user state
   const logout = useCallback(() => {
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     isAuthenticated: !!user, // A boolean indicating whether the user is authenticated
     login, // The function to log in the user
     logout, // The function to log out the user
-    mockLogin, // A function to log in with mock data for development purposes
+    //mockLogin, // A function to log in with mock data for development purposes
   };
 
   return (

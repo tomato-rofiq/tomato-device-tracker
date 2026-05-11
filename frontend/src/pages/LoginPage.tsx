@@ -1,20 +1,19 @@
 // this file defines the login page component that allows users to log in using their Google account
 
-// import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import { useAuth } from '../hooks/useAuth';
 
 export function LoginPage() {
-  // const { login, mockLogin, isAuthenticated } = useAuth();
-  const { login, mockLogin } = useAuth();
+  const { login, isAuthenticated } = useAuth();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Redirect to the scan page if the user is already authenticated
-  // useEffect(() => {
-  //   if (isAuthenticated) navigate('/scan', { replace: true });
-  // }, [isAuthenticated, navigate]);
+  useEffect(() => {
+    if (isAuthenticated) navigate('/', { replace: true });
+  }, [isAuthenticated, navigate]);
 
   // Set up Google One Tap login with a success callback that logs in the user
   useGoogleOneTapLogin({
@@ -35,7 +34,6 @@ export function LoginPage() {
         // The onError callback is called when the login process fails, and it logs an error message to the console
         onError={() => console.error('Login failed')}
       />
-      <button onClick={() => mockLogin()}>Mock Login</button>
     </div>
   );
 }

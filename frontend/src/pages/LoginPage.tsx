@@ -1,13 +1,15 @@
 // this file defines the login page component that allows users to log in using their Google account
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, useGoogleOneTapLogin } from '@react-oauth/google';
 import { useAuth } from '../hooks/useAuth';
 
 export function LoginPage() {
-  const { login, mockLogin, isAuthenticated, } = useAuth();
-  const navigate = useNavigate();
+  // const { login, mockLogin, isAuthenticated } = useAuth();
+  const { login, mockLogin } = useAuth();
+
+  // const navigate = useNavigate();
 
   // Redirect to the scan page if the user is already authenticated
   // useEffect(() => {

@@ -8,38 +8,38 @@ interface Props {
 
 export function DeviceInfoCard({ device }: Props) {
   return (
-    <div className="bg-white rounded-2xl shadow p-6 space-y-4">
-      <div>
+    <div className="bg-white rounded-2xl shadow p-6">
+
+      <div className="mb-6">
         <h2 className="text-xl font-bold">{device.name}</h2>
-        <p className="text-sm text-gray-500">{device.id}</p>
+        <p className="text-sm text-gray-500">番号: {device.id}</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 text-sm">
-        <div>
-          <p className="text-gray-500">Status</p>
-          <p className="font-medium capitalize">{device.status}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Classification</p>
-          <p className="font-medium capitalize">{device.classification}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Category</p>
-          <p className="font-medium capitalize">{device.category}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Location</p>
-          <p className="font-medium capitalize">{device.location}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Purpose</p>
-          <p className="font-medium capitalize">{device.purpose}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Current User</p>
-          <p className="font-medium">{device.currentUser || '—'}</p>
-        </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">状況</span>
+        <span className="font-medium">{device.status || '—'}</span>
       </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">分類</span>
+        <span className="font-medium">{device.classification || '—'}</span>
+      </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">用途</span>
+        <span className="font-medium">{device.purpose || '—'}</span>
+      </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">区分</span>
+        <span className="font-medium">{device.category || '—'}</span>
+      </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">場所</span>
+        <span className="font-medium">{device.location || '—'}</span>
+      </div>
+      <div className="flex justify-between py-2 border-b border-gray-100 text-sm">
+        <span className="text-gray-500">現在使用者</span>
+        <span className="font-medium">{device.currentUser || '—'}</span>
+      </div>
+
     </div>
   );
 }

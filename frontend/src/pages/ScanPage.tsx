@@ -11,11 +11,11 @@ export function ScanPage() {
 
 
   const handleScan = (result: string) => {
-    const pcId = result.split('/pc/')[1];
-    if (!pcId) return;
+    const deviceId = result.split('/device/')[1];
+    if (!deviceId) return;
 
     if (isAuthenticated) {
-      navigate(`/pc/${pcId}`);
+      navigate(`/device/${deviceId}`);
     } else {
       navigate('/login');
     }

@@ -1,4 +1,4 @@
-import type { PCUpdatePayload } from '../types/pc.types';
+import type { DeviceUpdatePayload } from '../types/device.types';
 
 export interface DropdownOption {
   value: string;
@@ -6,9 +6,9 @@ export interface DropdownOption {
 }
 
 export interface DropdownLevel {
-  key: keyof PCUpdatePayload;
+  key: keyof DeviceUpdatePayload;
   label: string;
-  dependsOn: keyof PCUpdatePayload | null;
+  dependsOn: keyof DeviceUpdatePayload | null;
   options: Record<string, DropdownOption[]> | DropdownOption[];
 }
 

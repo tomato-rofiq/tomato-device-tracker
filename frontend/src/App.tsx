@@ -17,10 +17,10 @@ function App() {
             <Route path="/" element={<ScanPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
-              path="/pc/:id"
+              path="/device/:id"
               element={
                 <ProtectedRoute>
-                  <div className="p-4">PC detail placeholder</div>
+                  <div className="p-4">Device detail placeholder</div>
                 </ProtectedRoute>
               }
             />

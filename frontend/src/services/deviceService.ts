@@ -14,3 +14,9 @@ export async function getAllDevices(): Promise<Device[]> {
   const res = await gasRequest<{ data: Device[] }>('getAllDevices');
   return res.data;
 }
+
+// Add a new device by its ID
+export async function addDevice(id: string): Promise<void> {
+  await gasRequest<{ success: boolean }>('addDevice', { id });
+}
+

@@ -50,7 +50,7 @@ export function Navbar() {
               PC一覧
             </button>
             <button onClick={() => handleNavigate('/search')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
-              使用者検索
+              社員検索
             </button>
             <button onClick={() => handleNavigate('/qr')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
               QR生成

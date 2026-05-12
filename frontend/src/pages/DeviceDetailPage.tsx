@@ -18,7 +18,7 @@ export function DeviceDetailPage() {
   if (!device) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
       <DeviceInfoCard device={device} />
     </div>
   );

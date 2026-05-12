@@ -37,7 +37,7 @@ export function Navbar() {
         onClick={() => setIsOpen(!isOpen)}
         className="m-4 p-2 bg-white rounded-lg shadow"
       >
-        {isOpen ? '✕' : '☰'}
+        {isOpen ? '閉じる' : 'メニュー'}
       </button>
 
       {isOpen && (

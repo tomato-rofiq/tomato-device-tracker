@@ -5,6 +5,7 @@
 import { useNavigate } from 'react-router-dom';
 import { QRScanner } from '../components/QRScanner';
 import { useAuth } from '../hooks/useAuth';
+import { Navbar } from '../components/Navbar';
 
 export function ScanPage() {
   const { isAuthenticated, user } = useAuth();
@@ -24,6 +25,7 @@ export function ScanPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
+      <Navbar />
       {user && <p className="text-sm text-gray-500">Signed in as {user.name}</p>}
       <h1 className="text-2xl font-bold">Scan a Device</h1>
       <QRScanner onScan={handleScan} />

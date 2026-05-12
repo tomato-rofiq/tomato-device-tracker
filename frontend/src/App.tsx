@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { ScanPage } from './pages/ScanPage';
+import { DeviceDetailPage } from './pages/DeviceDetailPage';
 
 // The Google Client ID is loaded from environment variables, defaulting to an empty string if not set
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
@@ -20,7 +21,7 @@ function App() {
               path="/device/:id"
               element={
                 <ProtectedRoute>
-                  <div className="p-4">Device detail placeholder</div>
+                  <DeviceDetailPage />
                 </ProtectedRoute>
               }
             />

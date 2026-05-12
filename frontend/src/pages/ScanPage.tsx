@@ -1,5 +1,6 @@
-// this file defines the scan page which holds the QR scanner component 
-// that allows users to scan a QR code to view device details. 
+// this page allows users to scan a QR code on a device, 
+// and redirects them to the device detail page if they are authenticated, 
+// or to the login page if not. It also shows the current user's name if they are signed in.
 
 import { useNavigate } from 'react-router-dom';
 import { QRScanner } from '../components/QRScanner';

@@ -1,4 +1,5 @@
-// this file defines the login page component that allows users to log in using their Google account
+// this page allows users to log in using their Google account, 
+// and redirects to the main scan page if they are already authenticated
 
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';

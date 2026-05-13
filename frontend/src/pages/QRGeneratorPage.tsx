@@ -56,7 +56,6 @@ export function QRGeneratorPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
-      <Navbar />
       <h1 className="text-xl font-bold mb-6">新規デバイス登録</h1>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow p-6 space-y-4">

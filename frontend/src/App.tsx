@@ -6,6 +6,8 @@ import { LoginPage } from './pages/LoginPage';
 import { ScanPage } from './pages/ScanPage';
 import { DeviceDetailPage } from './pages/DeviceDetailPage';
 import { QRGeneratorPage } from './pages/QRGeneratorPage';
+import { DeviceListPage } from './pages/DeviceListPage';
+import { QRPrintPage } from './pages/QRPrintPage';
 
 // The Google Client ID is loaded from environment variables, defaulting to an empty string if not set
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
@@ -22,11 +24,20 @@ function App() {
               <ProtectedRoute>
                 <DeviceDetailPage />
               </ProtectedRoute>
-            }
-            />
+            } />
+            <Route path="/device/:id/qr" element={
+              <ProtectedRoute>
+                <QRPrintPage />
+              </ProtectedRoute>
+            } />
             <Route path="/qr" element={
               <ProtectedRoute>
                 <QRGeneratorPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/devices" element={
+              <ProtectedRoute>
+                <DeviceListPage />
               </ProtectedRoute>
             } />
             <Route path="*" element={<Navigate to="/" replace />} />

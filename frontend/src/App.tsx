@@ -5,6 +5,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { ScanPage } from './pages/ScanPage';
 import { DeviceDetailPage } from './pages/DeviceDetailPage';
+import { QRGeneratorPage } from './pages/QRGeneratorPage';
 
 // The Google Client ID is loaded from environment variables, defaulting to an empty string if not set
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
@@ -17,14 +18,17 @@ function App() {
           <Routes>
             <Route path="/" element={<ScanPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/device/:id"
-              element={
-                <ProtectedRoute>
-                  <DeviceDetailPage />
-                </ProtectedRoute>
-              }
+            <Route path="/device/:id" element={
+              <ProtectedRoute>
+                <DeviceDetailPage />
+              </ProtectedRoute>
+            }
             />
+            <Route path="/qr" element={
+              <ProtectedRoute>
+                <QRGeneratorPage />
+              </ProtectedRoute>
+            } />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>

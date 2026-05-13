@@ -15,8 +15,24 @@ export async function getAllDevices(): Promise<Device[]> {
   return res.data;
 }
 
+// add a new device with detailed information
+// all device info is optional except for id
+export interface AddDevicePayload {
+  id: string;
+  manufacturer?: string;
+  modelName?: string;
+  cpu?: string;
+  ram?: string;
+  purchaseDate?: string;
+  osName?: string;
+  osLicense?: string;
+  backup?: string;
+  loginAccount?: string;
+  office?: string;
+}
+
 // Add a new device by its ID
-export async function addDevice(id: string): Promise<void> {
-  await gasRequest<{ success: boolean }>('addDevice', { id });
+export async function addDevice(payload: AddDevicePayload): Promise<void> {
+  await gasRequest<{ success: boolean }>('addDevice', payload);
 }
 

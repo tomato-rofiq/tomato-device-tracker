@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { addDevice } from '../services/deviceService';
-import { Navbar } from '../components/Navbar';
+import { addDeviceService } from '../services/deviceService';
 
 export function QRGeneratorPage() {
   const [number, setNumber] = useState('');
@@ -27,7 +26,7 @@ export function QRGeneratorPage() {
     setLoading(true);
     setError(null);
     try {
-      await addDevice({
+      await addDeviceService({
         id: number,
         manufacturer,
         modelName,

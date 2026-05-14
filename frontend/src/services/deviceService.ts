@@ -4,13 +4,13 @@ import { gasRequest } from './api';
 import type { Device } from '../types/device.types';
 
 // Fetch a single device by its ID
-export async function getDevice(id: string): Promise<Device> {
+export async function getDeviceService(id: string): Promise<Device> {
   const res = await gasRequest<{ data: Device }>('getDevice', { id });
   return res.data;
 }
 
 // Fetch all devices
-export async function getAllDevices(): Promise<Device[]> {
+export async function getAllDevicesService(): Promise<Device[]> {
   const res = await gasRequest<{ data: Device[] }>('getAllDevices');
   return res.data;
 }
@@ -32,7 +32,11 @@ export interface AddDevicePayload {
 }
 
 // Add a new device by its ID
-export async function addDevice(payload: AddDevicePayload): Promise<void> {
+export async function addDeviceService(payload: AddDevicePayload): Promise<void> {
   await gasRequest<{ success: boolean }>('addDevice', payload);
 }
 
+// Update an existing device with new information
+export async function updateDeviceService(payload: Device): Promise<void> {
+  await gasRequest<{ success: boolean }>('updateDevice', { payload });
+}

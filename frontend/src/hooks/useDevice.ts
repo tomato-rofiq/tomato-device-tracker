@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { Device } from '../types/device.types';
-import { getDevice, getAllDevices } from '../services/deviceService';
+import { getAllDevicesService, getDeviceService, updateDeviceService } from '../services/deviceService';
 
 export function useDevice() {
   const [device, setDevice] = useState<Device | null>(null); // State for a single device
@@ -15,7 +15,7 @@ export function useDevice() {
     setLoading(true);
     setError(null);
     try {
-      const data = await getDevice(id);
+      const data = await getDeviceService(id);
       setDevice(data);
     } catch (err) {
       setError('Failed to fetch device');
@@ -29,7 +29,7 @@ export function useDevice() {
     setLoading(true);
     setError(null);
     try {
-      const data = await getAllDevices();
+      const data = await getAllDevicesService();
       setAllDevices(data);
     } catch (err) {
       setError('Failed to fetch devices');
@@ -38,5 +38,17 @@ export function useDevice() {
     }
   }
 
-  return { device, allDevices, loading, error, fetchDevice, fetchAllDevices };
+  async function updateDevice(payload: Device) {
+    setLoading(true);
+    setError(null);
+    try {
+      await updateDeviceService(payload);
+    } catch {
+      setError('Failed to update device');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { device, allDevices, loading, error, fetchDevice, fetchAllDevices, updateDevice };
 }

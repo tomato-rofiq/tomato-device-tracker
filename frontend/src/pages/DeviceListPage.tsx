@@ -20,7 +20,7 @@ export function DeviceListPage() {
       <h1 className="text-xl font-bold mb-4">PC一覧</h1>
       {allDevices.map((device) => (
         <div key={device.id} className="mb-4">
-          <div className="cursor-pointer" onClick={() => navigate('/device/' + device.id)}>
+          <div>
             <DeviceInfoCard device={device} />
           </div>
           <div className="flex gap-2 mt-2">

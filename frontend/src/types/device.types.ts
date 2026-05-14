@@ -5,31 +5,31 @@ export type DevicePurpose = '営業PC' | 'サーバー' | '入館チェック' |
 export type DeviceLocation = '本社' | '本社(開発室)' | '本社(開発室-PCラック)' | '現場' | '自宅';
 
 export interface Device {
-  id: string;              // G: 番号
-  name: string;            // H: PC名 
-  status: DeviceStatus;    // C: 状況
-  classification: DeviceClassification;  // D: 分類
-  purpose: DevicePurpose;         // E: 用途
-  category: DeviceCategory;// F: 区分
-  currentUser: string;     // I: 現在使用者
-  employmentStatus: string;// J: 在/退職
-  previousUser: string;    // K: 以前使用者
-  location: DeviceLocation;        // L: 場所
-  condition: string;       // M: 状態
-  notes: string;           // N: 備考
-  loanDate: string;        // O: 貸出日
-  loanSlip: string;        // P: 貸出証
-  manufacturer: string;    // Q: 製造社
-  modelName: string;       // R: モデル名
-  cpu: string;             // S: CPU
-  ram: string;             // T: RAM
-  purchaseDate: string;    // U: 購入日
-  osName: string;          // V: OS名
-  osLicense: string;              // W: OS License
-  backup: string;          // X: バックアップ
-  loginAccount: string;    // Y: ログインア
-  office: string;          // Z: Office情報
-  ip: string;              // AA: IP
+  id: string;                           // G: 番号
+  name: string;                         // H: PC名 
+  status: DeviceStatus;                 // C: 状況
+  classification: DeviceClassification; // D: 分類
+  purpose: DevicePurpose;               // E: 用途
+  category: DeviceCategory;             // F: 区分
+  currentUser: string;                  // I: 現在使用者
+  employmentStatus: string;             // J: 在/退職
+  previousUser: string;                 // K: 以前使用者
+  location: DeviceLocation;             // L: 場所
+  condition: string;                    // M: 状態
+  notes: string;                        // N: 備考
+  loanDate: string;                     // O: 貸出日
+  loanSlip: string;                     // P: 貸出証
+  manufacturer: string;                 // Q: 製造社
+  modelName: string;                    // R: モデル名
+  cpu: string;                          // S: CPU
+  ram: string;                          // T: RAM
+  purchaseDate: string;                 // U: 購入日
+  osName: string;                       // V: OS名
+  osLicense: string;                    // W: OS License
+  backup: string;                       // X: バックアップ
+  loginAccount: string;                 // Y: ログインアカウント
+  office: string;                       // Z: Office情報
+  ip: string;                           // AA: IP
 }
 
 export interface DeviceUpdatePayload {

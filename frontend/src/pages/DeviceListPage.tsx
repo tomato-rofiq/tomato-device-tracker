@@ -31,7 +31,7 @@ export function DeviceListPage() {
             </button>
             <button
               className="bg-gray-200 rounded-lg p-2 text-sm font-medium"
-              onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/update'); }}>
+              onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/edit'); }}>
               編集
             </button>
           </div>

@@ -19,6 +19,7 @@ export function DeviceDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
+      <h1 className="text-xl font-bold mb-4">デバイス詳細</h1>
       <DeviceInfoCard device={device} />
     </div>
   );

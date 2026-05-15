@@ -64,7 +64,7 @@ export function QRGeneratorPage() {
         <div className="bg-white rounded-2xl shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">基本情報</h2>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">PC番号</label>
+            <label className="block text-sm text-gray-500 mb-1">PC番号 *</label>
             <input
               type="text"
               value={number}

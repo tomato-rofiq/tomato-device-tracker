@@ -1,3 +1,7 @@
+// this page is for printing the QR code for a device. 
+// It is accessed from the device list page when the user clicks the "Print QR Code" button. 
+// It uses the qrcode.react library to generate the QR code, 
+// and it automatically opens the print dialog when the page loads.
 
 import { useEffect, useRef } from "react";
 import { QRCodeSVG } from "qrcode.react";

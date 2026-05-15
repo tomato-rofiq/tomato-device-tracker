@@ -38,6 +38,7 @@ export function useDevice() {
     }
   }
 
+  // Update a device's information and handle loading/error states
   async function updateDevice(payload: Device) {
     setLoading(true);
     setError(null);

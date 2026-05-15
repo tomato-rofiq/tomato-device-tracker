@@ -1,3 +1,7 @@
+// this page is for editing device information. 
+// It fetches the device data using the useDevice hook and displays a form for 
+// editing the device information. When the form is submitted, it calls the 
+// updateDevice function from the useDevice hook to update the device information in the backend.
 
 import { useState } from "react";
 import { useEffect } from "react";
@@ -47,11 +51,12 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, status: e.target.value as Device['status'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             >
-              <option value="使用中">使用中</option>
-              <option value="未使用">未使用</option>
-              <option value="破棄">破棄</option>
-              <option value="使用不可">使用不可</option>
-              <option value="不明">不明</option>
+              <option value="">選択</option>
+              <option value="1使用中">1使用中</option>
+              <option value="2未使用">2未使用</option>
+              <option value="3破棄">3破棄</option>
+              <option value="4使用不可">4使用不可</option>
+              <option value="5不明">5不明</option>
             </select>
           </div>
           <div>
@@ -61,14 +66,15 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, classification: e.target.value as Device['classification'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             >
-              <option value="営業管理部">営業管理部</option>
-              <option value="現場貸出">現場貸出</option>
-              <option value="開発サーバー">開発サーバー</option>
-              <option value="社内開発">社内開発</option>
-              <option value="貸出(社内開発)">貸出(社内開発)</option>
-              <option value="貸出(現場)">貸出(現場)</option>
-              <option value="本社待機者">本社待機者</option>
-              <option value="新人教育">新人教育</option>
+              <option value="">選択</option>
+              <option value="1営業管理部">1営業管理部</option>
+              <option value="2現場貸出">2現場貸出</option>
+              <option value="3開発サーバー">3開発サーバー</option>
+              <option value="4社内開発">4社内開発</option>
+              <option value="5貸出(社内開発)">5貸出(社内開発)</option>
+              <option value="6貸出(現場)">6貸出(現場)</option>
+              <option value="7本社待機者">7本社待機者</option>
+              <option value="8新人教育">8新人教育</option>
             </select>
           </div>
           <div>
@@ -78,13 +84,14 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, purpose: e.target.value as Device['purpose'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             >
-              <option value="営業PC">営業PC</option>
-              <option value="サーバー">サーバー</option>
-              <option value="入館チェック">入館チェック</option>
-              <option value="会議室">会議室</option>
-              <option value="開発PC">開発PC</option>
-              <option value="開発MAC">開発MAC</option>
-              <option value="現場用">現場用</option>
+              <option value="">選択</option>
+              <option value="1営業PC">1営業PC</option>
+              <option value="2サーバー">2サーバー</option>
+              <option value="3入館チェック">3入館チェック</option>
+              <option value="4会議室">4会議室</option>
+              <option value="5開発PC">5開発PC</option>
+              <option value="6開発MAC">6開発MAC</option>
+              <option value="7現場用">7現場用</option>
             </select>
           </div>
           <div>
@@ -94,30 +101,31 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, category: e.target.value as Device['category'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             >
-              <option value="Desktop">Desktop</option>
-              <option value="NotePC">NotePC</option>
-              <option value="Mac">Mac</option>
-              <option value="Surface">Surface</option>
-              <option value="Tablet">Tablet</option>
+              <option value="">選択</option>
+              <option value="1Desktop">1Desktop</option>
+              <option value="2NotePC">2NotePC</option>
+              <option value="3Mac">3Mac</option>
+              <option value="4Surface">4Surface</option>
+              <option value="5Tablet">5Tablet</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">番号</label>
+            <label className="block text-sm mb-1">番号</label>
             <input
               type="text"
               value={formData.id}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm disabled:bg-gray-50"
               disabled
             />
-            <div>
-              <label className="block text-sm text-gray-500 mb-1">PC名</label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={e => setFormData({ ...formData, name: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-              />
-            </div>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">PC名</label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={e => setFormData({ ...formData, name: e.target.value })}
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+            />
           </div>
         </div>
 
@@ -161,11 +169,12 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, location: e.target.value as Device['location'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             >
-              <option value="本社">本社</option>
-              <option value="本社(開発室)">本社(開発室)</option>
-              <option value="本社(開発室-PCラック)">本社(開発室-PCラック)</option>
-              <option value="現場">現場</option>
-              <option value="自宅">自宅</option>
+              <option value="">選択</option>
+              <option value="1本社">1本社</option>
+              <option value="2本社(開発室)">2本社(開発室)</option>
+              <option value="3本社(開発室-PCラック)">3本社(開発室-PCラック)</option>
+              <option value="4現場">4現場</option>
+              <option value="5自宅">5自宅</option>
             </select>
           </div>
         </div>
@@ -199,7 +208,7 @@ export function DeviceEditPage() {
             <input
               type="date"
               value={formData.loanDate}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm disabled:bg-gray-50"
               disabled
             />
           </div>
@@ -208,7 +217,7 @@ export function DeviceEditPage() {
             <input
               type="text"
               value={formData.loanSlip}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm disabled:bg-gray-50"
               disabled
             />
           </div>
@@ -245,12 +254,20 @@ export function DeviceEditPage() {
           </div>
           <div>
             <label className="block text-sm text-gray-500 mb-1">RAM</label>
-            <input
-              type="text"
+            <select
               value={formData.ram}
-              onChange={e => setFormData({ ...formData, ram: e.target.value })}
+              onChange={e => setFormData({ ...formData, ram: e.target.value as Device['ram'] })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-            />
+            >
+              <option value="">選択</option>
+              <option value="4GB">4GB</option>
+              <option value="8GB">8GB</option>
+              <option value="12GB">12GB</option>
+              <option value="16GB">16GB</option>
+              <option value="32GB">32GB</option>
+              <option value="64GB">64GB</option>
+              <option value="128GB">128GB</option>
+            </select>
           </div>
           <div>
             <label className="block text-sm text-gray-500 mb-1">購入日</label>

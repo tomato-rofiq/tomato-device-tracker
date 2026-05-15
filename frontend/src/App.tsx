@@ -21,27 +21,27 @@ function App() {
           <Routes>
             <Route path="/" element={<ScanPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/device/:id" element={
+            <Route path="/device/:id" element={ // route to display the details of a device
               <ProtectedRoute>
                 <DeviceDetailPage />
               </ProtectedRoute>
             } />
-            <Route path="/device/:id/qr" element={
+            <Route path="/device/:id/qr" element={ // route to print the QR code for a device
               <ProtectedRoute>
                 <QRPrintPage />
               </ProtectedRoute>
             } />
-            <Route path="/device/:id/edit" element={
+            <Route path="/device/:id/edit" element={ // route to edit the device information
               <ProtectedRoute>
                 <DeviceEditPage />
               </ProtectedRoute>
             } />
-            <Route path="/qr" element={
+            <Route path="/qr" element={ // route to generate a QR code for a new device
               <ProtectedRoute>
                 <QRGeneratorPage />
               </ProtectedRoute>
             } />
-            <Route path="/devices" element={
+            <Route path="/devices" element={ // route to display the list of devices
               <ProtectedRoute>
                 <DeviceListPage />
               </ProtectedRoute>

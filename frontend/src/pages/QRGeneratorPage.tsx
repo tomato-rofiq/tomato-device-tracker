@@ -20,7 +20,9 @@ export function QRGeneratorPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // handle form submission to add a new device and generate QR code
+  // handle form submission to add a new device and generate QR code.
+  // not using a hook because we want to keep the form state local to 
+  // this component and not affect other parts of the app.
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -105,12 +107,20 @@ export function QRGeneratorPage() {
           </div>
           <div>
             <label className="block text-sm text-gray-500 mb-1">RAM</label>
-            <input
-              type="text"
+            <select
               value={ram}
               onChange={e => setRam(e.target.value)}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-            />
+            >
+              <option value="">選択</option>
+              <option value="4GB">4GB</option>
+              <option value="8GB">8GB</option>
+              <option value="12GB">12GB</option>
+              <option value="16GB">16GB</option>
+              <option value="32GB">32GB</option>
+              <option value="64GB">64GB</option>
+              <option value="128GB">128GB</option>
+            </select>
           </div>
           <div>
             <label className="block text-sm text-gray-500 mb-1">購入日</label>

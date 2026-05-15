@@ -1,5 +1,4 @@
 export interface GoogleUser {
-  //these fields are based on the response from Google's OAuth2 API
   googleId: string;
   email: string;
   name: string;

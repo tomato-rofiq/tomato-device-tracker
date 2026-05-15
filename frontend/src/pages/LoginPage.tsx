@@ -8,7 +8,6 @@ import { useAuth } from '../hooks/useAuth';
 
 export function LoginPage() {
   const { login, isAuthenticated } = useAuth();
-
   const navigate = useNavigate();
 
   // Redirect to the scan page if the user is already authenticated
@@ -26,7 +25,7 @@ export function LoginPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-      <h1 className="text-2xl font-bold">Device Tracker</h1>
+      <h1 className="text-2xl font-bold">Please Login to use this application</h1>
       <GoogleLogin
         // The onSuccess callback is called when the user successfully logs in with Google
         onSuccess={(response) => {

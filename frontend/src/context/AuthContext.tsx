@@ -7,10 +7,11 @@ import type { GoogleUser } from '../types/user.types';
 
 // The structure of the decoded JWT token from Google
 interface DecodedToken {
-  sub: string;
+  sub: string; // The unique identifier for the user (Google ID)
   email: string;
   name: string;
   picture: string;
+  exp: number; // The expiration time of the token (in seconds)
 }
 
 // The shape of the authentication context
@@ -19,7 +20,6 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
-  // mockLogin: () => void;
 }
 
 // Create the authentication context with a default value of null
@@ -27,10 +27,31 @@ export const AuthContext = createContext<AuthContextType | null>(null);
 
 // The provider component that wraps the app and provides the authentication state
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<GoogleUser | null>(null);
+
+  const [user, setUser] = useState<GoogleUser | null>(() => {
+    const token = sessionStorage.getItem('auth_token'); // Retrieve the JWT token from session storage
+    if (!token) return null;
+    try {
+      const decoded = jwtDecode<DecodedToken>(token);
+      if (decoded.exp * 1000 < Date.now()) { // Check if the token has expired (typically exp is 1hr from issuance)
+        sessionStorage.removeItem('auth_token');
+        return null;
+      }
+      return {
+        googleId: decoded.sub,
+        email: decoded.email,
+        name: decoded.name,
+        imageUrl: decoded.picture,
+        accessToken: token,
+      };
+    } catch {
+      return null;
+    }
+  });
 
   // Function to handle login by decoding the JWT token and setting the user state
   const login = useCallback((token: string) => {
+    sessionStorage.setItem('auth_token', token); // Store the JWT token in session storage
     const decoded = jwtDecode<DecodedToken>(token);
     setUser({
       googleId: decoded.sub,
@@ -43,6 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Function to handle logout by clearing the user state
   const logout = useCallback(() => {
+    sessionStorage.removeItem('auth_token');
     setUser(null);
   }, []);
 

@@ -10,5 +10,8 @@ export async function gasRequest<T>(action: string, payload?: object): Promise<T
     body: JSON.stringify({ action, ...payload }),
   });
   if (!response.ok) throw new Error(`GAS request failed: ${response.status}`);
-  return response.json();
+  const json = await response.json();
+  if (json.error) throw new Error(json.error);
+  return json;
 }
+

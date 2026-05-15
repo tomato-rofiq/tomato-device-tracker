@@ -7,7 +7,15 @@ export interface GoogleUser {
 }
 
 export interface Employee {
-  id: string;
+  number: string;
   name: string;
-  email: string;
+  position: string;
+  displayName: string;
+  koreanName: string;
+  englishName: string;
+  furigana: string;
+  status: string;
+  nationality: string;
+  startDate: string;
+  endDate: string;
 }

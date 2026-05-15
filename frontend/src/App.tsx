@@ -9,6 +9,7 @@ import { QRGeneratorPage } from './pages/QRGeneratorPage';
 import { DeviceListPage } from './pages/DeviceListPage';
 import { QRPrintPage } from './pages/QRPrintPage';
 import { DeviceEditPage } from './pages/DeviceEditPage';
+import { EmployeeSearchPage } from './pages/EmployeeSearchPage';
 
 // The Google Client ID is loaded from environment variables, defaulting to an empty string if not set
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
@@ -44,6 +45,11 @@ function App() {
             <Route path="/devices" element={ // route to display the list of devices
               <ProtectedRoute>
                 <DeviceListPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/search" element={ // route to search for employees
+              <ProtectedRoute>
+                <EmployeeSearchPage />
               </ProtectedRoute>
             } />
             <Route path="*" element={<Navigate to="/" replace />} />

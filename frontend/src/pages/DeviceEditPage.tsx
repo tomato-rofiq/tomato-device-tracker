@@ -8,17 +8,26 @@ import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDevice } from "../hooks/useDevice";
 import { useNavigate } from "react-router";
+import { getEmployeesService } from "../services/employeeService";
 import type { Device } from "../types/device.types";
+import type { Employee } from "../types/user.types";
 
 export function DeviceEditPage() {
   const { id } = useParams<{ id: string }>();
   const { device, loading, error, fetchDevice, updateDevice } = useDevice();
   const [formData, setFormData] = useState<Device | null>(null);
+  const [employees, setEmployees] = useState<Employee[]>([]);
   const navigate = useNavigate();
 
+  // Fetch device data when component mounts or id changes
   useEffect(() => {
     if (id) fetchDevice(id);
   }, [id]);
+
+  // Fetch employee list for the current user dropdown
+  useEffect(() => {
+    getEmployeesService().then(setEmployees).catch(() => { });
+  }, []);
 
   useEffect(() => {
     if (device) setFormData(device);
@@ -38,18 +47,32 @@ export function DeviceEditPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
-      <h1 className="text-xl font-bold mb-6">デバイス編集</h1>
+      <h1 className="text-xl font-bold mb-6">デバイス詳細編集</h1>
 
       <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow p-6 space-y-4">
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">基本情報</h2>
+        <div className="bg-yellow-50 rounded-2xl shadow p-6 space-y-4">
+          <h2 className="text-sm text-yellow-500 font-semibold uppercase tracking-wide">使用状況</h2>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">状況</label>
+            <label className="block text-sm text-yellow-500 mb-1">現在使用者</label>
+            <select
+              value={formData.currentUser}
+              onChange={e => setFormData({ ...formData, currentUser: e.target.value })}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm"
+            >
+              <option value="">選択なし</option>
+              {employees.map(emp => (
+                <option key={emp.number} value={emp.displayName}>{emp.displayName}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm text-yellow-500 mb-1">状況</label>
             <select
               value={formData.status}
               onChange={e => setFormData({ ...formData, status: e.target.value as Device['status'] })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              disabled={!formData.currentUser}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm disabled:bg-yellow-100 disabled:text-yellow-500"
             >
               <option value="">選択</option>
               <option value="1使用中">1使用中</option>
@@ -60,11 +83,12 @@ export function DeviceEditPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">分類</label>
+            <label className="block text-sm text-yellow-500 mb-1">分類</label>
             <select
               value={formData.classification}
               onChange={e => setFormData({ ...formData, classification: e.target.value as Device['classification'] })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              disabled={!formData.status}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm disabled:bg-yellow-100 disabled:text-yellow-500"
             >
               <option value="">選択</option>
               <option value="1営業管理部">1営業管理部</option>
@@ -78,11 +102,28 @@ export function DeviceEditPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">用途</label>
+            <label className="block text-sm text-yellow-500 mb-1">場所</label>
+            <select
+              value={formData.location}
+              onChange={e => setFormData({ ...formData, location: e.target.value as Device['location'] })}
+              disabled={!formData.classification}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm disabled:bg-yellow-100 disabled:text-yellow-500"
+            >
+              <option value="">選択</option>
+              <option value="1本社">1本社</option>
+              <option value="2本社(開発室)">2本社(開発室)</option>
+              <option value="3本社(開発室-PCラック)">3本社(開発室-PCラック)</option>
+              <option value="4現場">4現場</option>
+              <option value="5自宅">5自宅</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm text-yellow-500 mb-1">用途</label>
             <select
               value={formData.purpose}
               onChange={e => setFormData({ ...formData, purpose: e.target.value as Device['purpose'] })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              disabled={!formData.location}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm disabled:bg-yellow-100 disabled:text-yellow-500"
             >
               <option value="">選択</option>
               <option value="1営業PC">1営業PC</option>
@@ -95,11 +136,15 @@ export function DeviceEditPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">区分</label>
+            <label className="block text-sm text-yellow-500 mb-1">区分</label>
             <select
               value={formData.category}
-              onChange={e => setFormData({ ...formData, category: e.target.value as Device['category'] })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              onChange={e => setFormData({
+                ...formData,
+                category: e.target.value as Device['category']
+              })}
+              disabled={!formData.purpose}
+              className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm disabled:bg-yellow-100 disabled:text-yellow-500"
             >
               <option value="">選択</option>
               <option value="1Desktop">1Desktop</option>
@@ -109,6 +154,11 @@ export function DeviceEditPage() {
               <option value="5Tablet">5Tablet</option>
             </select>
           </div>
+        </div>
+
+
+        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">基本情報</h2>
           <div>
             <label className="block text-sm mb-1">番号</label>
             <input
@@ -132,15 +182,6 @@ export function DeviceEditPage() {
         <div className="bg-white rounded-2xl shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">使用者情報</h2>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">現在使用者</label>
-            <input
-              type="text"
-              value={formData.currentUser}
-              onChange={e => setFormData({ ...formData, currentUser: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-            />
-          </div>
-          <div>
             <label className="block text-sm text-gray-500 mb-1">在/退職</label>
             <input
               type="text"
@@ -157,25 +198,6 @@ export function DeviceEditPage() {
               onChange={e => setFormData({ ...formData, previousUser: e.target.value })}
               className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             />
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
-          <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">使用場所</h2>
-          <div>
-            <label className="block text-sm text-gray-500 mb-1">場所</label>
-            <select
-              value={formData.location}
-              onChange={e => setFormData({ ...formData, location: e.target.value as Device['location'] })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-            >
-              <option value="">選択</option>
-              <option value="1本社">1本社</option>
-              <option value="2本社(開発室)">2本社(開発室)</option>
-              <option value="3本社(開発室-PCラック)">3本社(開発室-PCラック)</option>
-              <option value="4現場">4現場</option>
-              <option value="5自宅">5自宅</option>
-            </select>
           </div>
         </div>
 

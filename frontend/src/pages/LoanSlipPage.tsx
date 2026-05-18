@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { useDevice } from "../hooks/useDevice";
 import { useEffect } from "react";
 import { LoanSlipDocument } from "../components/LoanSlipDocument";
+import { StatusScreen } from "../components/StatusScreen";
 
 export function LoanSlipPage() {
   const navigate = useNavigate();
-  const { allDevices, loading, updateDevice, fetchAllDevices } = useDevice();
+  const { allDevices, loading, error, updateDevice, fetchAllDevices } = useDevice();
   const { formData, employee } = useLocation().state || {};
   const loanDate = new Date().toISOString().split('T')[0];
 
@@ -30,6 +31,8 @@ export function LoanSlipPage() {
     await updateDevice({ ...formData, loanDate });
     navigate('/device/' + formData.id);
   }
+
+  if (loading || error) return <StatusScreen loading={loading} error={error} />;
 
   return (
     <div className="min-h-screen pt-20 px-6 pb-6">

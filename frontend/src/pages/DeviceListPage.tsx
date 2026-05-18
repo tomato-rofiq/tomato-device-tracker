@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useDevice } from "../hooks/useDevice";
 import { DeviceInfoCard } from "../components/DeviceInfoCard";
 import { useNavigate } from "react-router-dom";
+import { StatusScreen } from "../components/StatusScreen";
 
 export function DeviceListPage() {
   const { fetchAllDevices, loading, error, allDevices } = useDevice();
@@ -16,8 +17,7 @@ export function DeviceListPage() {
     fetchAllDevices();
   }, []);
 
-  if (loading) return <p className="p-6">Loading...</p>;
-  if (error) return <p className="p-6 text-red-500">{error}</p>;
+  if (loading || error) return <StatusScreen loading={loading} error={error} />;
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">

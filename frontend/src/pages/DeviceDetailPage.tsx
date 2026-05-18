@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDevice } from '../hooks/useDevice';
 import { DeviceInfoCard } from '../components/DeviceInfoCard';
+import { StatusScreen } from '../components/StatusScreen';
 
 export function DeviceDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -13,8 +14,7 @@ export function DeviceDetailPage() {
     if (id) fetchDevice(id);
   }, [id]);
 
-  if (loading) return <p className="p-6">Loading...</p>;
-  if (error) return <p className="p-6 text-red-500">{error}</p>;
+  if (loading || error) return <StatusScreen loading={loading} error={error} />;
   if (!device) return null;
 
   return (

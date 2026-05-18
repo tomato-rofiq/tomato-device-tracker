@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { addDeviceService } from '../services/deviceService';
+import { StatusScreen } from '../components/StatusScreen';
 
 export function QRGeneratorPage() {
   const [number, setNumber] = useState('');
@@ -54,6 +55,8 @@ export function QRGeneratorPage() {
   const qrUrl = generatedId
     ? `${window.location.origin}/device/${generatedId}`
     : '';
+
+  if (loading || error) return <StatusScreen loading={loading} error={error} />;
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">

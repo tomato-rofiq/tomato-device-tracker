@@ -10,6 +10,7 @@ import { DeviceListPage } from './pages/DeviceListPage';
 import { QRPrintPage } from './pages/QRPrintPage';
 import { DeviceEditPage } from './pages/DeviceEditPage';
 import { EmployeeSearchPage } from './pages/EmployeeSearchPage';
+import { LoanSlipPage } from './pages/LoanSlipPage';
 
 // The Google Client ID is loaded from environment variables, defaulting to an empty string if not set
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
@@ -35,6 +36,11 @@ function App() {
             <Route path="/device/:id/edit" element={ // route to edit the device information
               <ProtectedRoute>
                 <DeviceEditPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/device/:id/loan" element={ // route to generate a loan slip for a device
+              <ProtectedRoute>
+                <LoanSlipPage />
               </ProtectedRoute>
             } />
             <Route path="/qr" element={ // route to generate a QR code for a new device

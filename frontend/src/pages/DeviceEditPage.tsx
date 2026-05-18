@@ -11,12 +11,14 @@ import { useNavigate } from "react-router";
 import { getEmployeesService } from "../services/employeeService";
 import type { Device } from "../types/device.types";
 import type { Employee } from "../types/user.types";
+import { StatusScreen } from "../components/StatusScreen";
 
 export function DeviceEditPage() {
   const { id } = useParams<{ id: string }>();
   const { device, loading, error, fetchDevice, updateDevice } = useDevice();
   const [formData, setFormData] = useState<Device | null>(null);
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [employeesLoading, setEmployeesLoading] = useState(false);
   const navigate = useNavigate();
 
   // Fetch device data when component mounts or id changes
@@ -33,16 +35,35 @@ export function DeviceEditPage() {
     if (device) setFormData(device);
   }, [device]);
 
+  useEffect(() => {
+    setEmployeesLoading(true);
+    getEmployeesService()
+      .then(setEmployees)
+      .catch(() => { })
+      .finally(() => setEmployeesLoading(false));
+  }, []);
+
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (formData) {
-      await updateDevice(formData);
-      navigate("/device/" + formData.id);
+      try {
+        // find employee object based on currentUser displayName
+        const employee = employees.find(emp => emp.displayName === formData.currentUser);
+        // if classification includes "貸出" and employee is found, 
+        // navigate to loan page instead of updating device
+        if (formData.classification.includes("貸出") && employee) {
+          navigate(`/device/${formData.id}/loan`, { state: { formData, employee } });
+        } else {
+          await updateDevice(formData);
+          navigate("/device/" + formData.id);
+        }
+      } catch (err) {
+        console.error("Error updating device:", err);
+      }
     }
   };
 
-  if (loading) return <p className="p-6">Loading...</p>;
-  if (error) return <p className="p-6 text-red-500">{error}</p>;
+  if (loading || error) return <StatusScreen loading={loading} error={error} />;
   if (!formData) return null;
 
   return (

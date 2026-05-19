@@ -1,3 +1,5 @@
+// thsis page is for searching employees by name or number, 
+// and displaying their information in a card format
 
 import { useState, useEffect } from 'react';
 import { getEmployeesService } from '../services/employeeService';
@@ -18,6 +20,7 @@ export function EmployeeSearchPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  // filter employees by name or number based on the query
   const filtered = employees.filter(emp =>
     emp.displayName.toLowerCase().includes(query.toLowerCase())
   );

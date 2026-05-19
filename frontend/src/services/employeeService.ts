@@ -1,4 +1,4 @@
-
+// this service is for fetching employee data from the backend
 
 import { gasRequest } from "./api";
 import type { Employee } from "../types/user.types";

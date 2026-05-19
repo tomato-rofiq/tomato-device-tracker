@@ -1,4 +1,4 @@
-// this file contains functions to interact with the Google Apps Script backend for device-related operations
+// this service is for fetching device data from the backend
 
 import { gasRequest } from './api';
 import type { Device } from '../types/device.types';

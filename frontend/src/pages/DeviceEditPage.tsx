@@ -52,7 +52,9 @@ export function DeviceEditPage() {
         // if classification includes "貸出" and employee is found, 
         // navigate to loan page instead of updating device
         if (formData.classification.includes("貸出") && employee) {
-          navigate(`/device/${formData.id}/loan`, { state: { formData, employee } });
+          // pass the original device data to the loan page so that we can compare the 
+          // before and after data and log the changes in the history
+          navigate(`/device/${formData.id}/loan`, { state: { formData, employee, originalDevice: device } });
         } else {
           await updateDevice(formData);
           navigate("/device/" + formData.id);

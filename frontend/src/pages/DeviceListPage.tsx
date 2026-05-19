@@ -31,12 +31,12 @@ export function DeviceListPage() {
             </div>
             <div className="flex gap-2 mt-2">
               <button
-                className="bg-gray-200 rounded-lg p-2 ms-5 text-sm font-medium"
+                className="w-full bg-gray-200 rounded-lg p-2 text-sm font-medium"
                 onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/qr'); }}>
                 QR印刷
               </button>
               <button
-                className="bg-gray-200 rounded-lg p-2 text-sm font-medium"
+                className="w-full bg-gray-200 rounded-lg p-2 text-sm font-medium"
                 onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/edit'); }}>
                 編集
               </button>

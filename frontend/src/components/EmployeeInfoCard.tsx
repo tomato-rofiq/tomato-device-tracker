@@ -9,7 +9,7 @@ export function EmployeeInfoCard({ employee }: Props) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <div className="bg-white rounded-2xl shadow p-6">
+    <div className="bg-white rounded-lg shadow p-6">
 
       <div className="mb-6">
         <h2 className="text-xl font-bold">{employee.displayName}</h2>

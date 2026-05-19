@@ -62,9 +62,9 @@ export function QRGeneratorPage() {
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
       <h1 className="text-xl font-bold mb-6">新規デバイス登録</h1>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-4">
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">基本情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">PC番号 *</label>
@@ -79,7 +79,7 @@ export function QRGeneratorPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">PC情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">製造社</label>
@@ -136,7 +136,7 @@ export function QRGeneratorPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">OS情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">OS名</label>
@@ -156,7 +156,7 @@ export function QRGeneratorPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Office情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">Office</label>
@@ -176,7 +176,7 @@ export function QRGeneratorPage() {
 
       {/* QR code display and print button */}
       {qrUrl && (
-        <div className="mt-6 bg-white rounded-2xl shadow p-6 flex flex-col items-center space-y-4">
+        <div className="mt-6 bg-white rounded-lg shadow p-6 flex flex-col items-center space-y-4">
           <p className="text-sm text-gray-500">番号: {generatedId}</p>
           <QRCodeSVG value={qrUrl} size={200} />
           <button

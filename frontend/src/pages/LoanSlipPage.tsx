@@ -4,16 +4,17 @@
 
 import { Navigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useDevice } from "../hooks/useDevice";
-import { useEffect } from "react";
+import { useDevice } from "../hooks/useDevice"
+import { useEffect, useRef } from "react";
 import { LoanSlipDocument } from "../components/LoanSlipDocument";
 import { StatusScreen } from "../components/StatusScreen";
 
 export function LoanSlipPage() {
   const navigate = useNavigate();
   const { allDevices, loading, error, updateDevice, fetchAllDevices } = useDevice();
-  const { formData, employee } = useLocation().state || {};
+  const { formData, employee, originalDevice } = useLocation().state || {};
   const loanDate = new Date().toISOString().split('T')[0];
+  const isSaving = useRef(false); // to prevent multiple clicks on the save button
 
   useEffect(() => {
     fetchAllDevices();
@@ -28,7 +29,11 @@ export function LoanSlipPage() {
   if (!formData || !employee) return <Navigate to="/devices" replace />;
 
   async function handleSave() {
-    await updateDevice({ ...formData, loanDate });
+    if (isSaving.current) return; // prevent multiple clicks
+    isSaving.current = true;
+    // original device is for comparing the before and after data, 
+    // if it is not provided, we will use the current device state as the before device
+    await updateDevice({ ...formData, loanDate }, originalDevice);
     navigate('/device/' + formData.id);
   }
 

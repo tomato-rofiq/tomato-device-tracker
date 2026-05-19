@@ -40,6 +40,11 @@ export function DeviceListPage() {
                 onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/edit'); }}>
                 編集
               </button>
+              <button
+                className="w-full bg-gray-200 rounded-lg p-2 text-sm font-medium"
+                onClick={(e) => { e.stopPropagation(); navigate('/device/' + device.id + '/history'); }}>
+                更新履歴
+              </button>
             </div>
           </div>
         ))

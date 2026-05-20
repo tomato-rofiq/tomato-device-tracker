@@ -147,11 +147,11 @@ export function QRGeneratorPage() {
             <input type="text" value={osLicense} onChange={e => setOsLicense(e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">バックアップ</label>
+            <label className="block text-sm text-gray-500 mb-1">バックアップイメージ作成日</label>
             <input type="text" value={backup} onChange={e => setBackup(e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm" />
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">ログインア</label>
+            <label className="block text-sm text-gray-500 mb-1">ログインアカウント/パスワード/PIN</label>
             <input type="text" value={loginAccount} onChange={e => setLoginAccount(e.target.value)} className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm" />
           </div>
         </div>

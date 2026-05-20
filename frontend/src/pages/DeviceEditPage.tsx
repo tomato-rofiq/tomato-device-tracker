@@ -72,15 +72,23 @@ export function DeviceEditPage() {
     <div className="min-h-screen bg-gray-50 pt-20 px-6 pb-6">
       <h1 className="text-xl font-bold mb-6">デバイス詳細編集</h1>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 space-y-4">
 
-        <div className="bg-yellow-50 rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-yellow-50 rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm text-yellow-500 font-semibold uppercase tracking-wide">使用状況</h2>
           <div>
             <label className="block text-sm text-yellow-500 mb-1">現在使用者</label>
             <select
               value={formData.currentUser}
-              onChange={e => setFormData({ ...formData, currentUser: e.target.value })}
+              onChange={e => {
+                // When the current user changes, we also want to update the employment status based on the selected employee
+                const selectedEmployee = employees.find(emp => emp.displayName === e.target.value);
+                setFormData({
+                  ...formData,
+                  currentUser: e.target.value,
+                  employmentStatus: selectedEmployee ? selectedEmployee.status : '',
+                });
+              }}
               className="w-full border border-yellow-500 bg-white rounded-lg px-4 py-2 text-sm"
             >
               <option value="">選択なし</option>
@@ -180,7 +188,7 @@ export function DeviceEditPage() {
         </div>
 
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">基本情報</h2>
           <div>
             <label className="block text-sm mb-1">番号</label>
@@ -202,29 +210,33 @@ export function DeviceEditPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">使用者情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">在/退職</label>
             <input
               type="text"
               value={formData.employmentStatus}
-              onChange={e => setFormData({ ...formData, employmentStatus: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+              disabled
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm disabled:bg-gray-50"
             />
           </div>
           <div>
             <label className="block text-sm text-gray-500 mb-1">以前使用者</label>
-            <input
-              type="text"
+            <select
               value={formData.previousUser}
               onChange={e => setFormData({ ...formData, previousUser: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
-            />
+              className="w-full border border-gray-200 bg-white rounded-lg px-4 py-2 text-sm"
+            >
+              <option value="">選択なし</option>
+              {employees.map(emp => (
+                <option key={emp.number} value={emp.displayName}>{emp.displayName}</option>
+              ))}
+            </select>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">状態情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">状態</label>
@@ -246,7 +258,7 @@ export function DeviceEditPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">貸出情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">貸出日</label>
@@ -262,13 +274,12 @@ export function DeviceEditPage() {
             <input
               type="text"
               value={formData.loanSlip}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm disabled:bg-gray-50"
-              disabled
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
             />
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">PC情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">製造社</label>
@@ -325,7 +336,7 @@ export function DeviceEditPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">OS情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">OS名</label>
@@ -345,15 +356,16 @@ export function DeviceEditPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">バックアップ</label>
+            <label className="block text-sm text-gray-500 mb-1">バックアップイメージ作成日</label>
             <input
-              type="text"
+              type="date"
               value={formData.backup}
               onChange={e => setFormData({ ...formData, backup: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm" />
+              className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"
+            />
           </div>
           <div>
-            <label className="block text-sm text-gray-500 mb-1">ログインアカウント</label>
+            <label className="block text-sm text-gray-500 mb-1">ログインアカウント/パスワード/PIN</label>
             <input
               type="text"
               value={formData.loginAccount}
@@ -362,7 +374,7 @@ export function DeviceEditPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Office情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">Office</label>
@@ -374,7 +386,7 @@ export function DeviceEditPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow p-6 space-y-4">
+        <div className="bg-white rounded-lg shadow p-6 space-y-4">
           <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">IP情報</h2>
           <div>
             <label className="block text-sm text-gray-500 mb-1">IP</label>

@@ -24,8 +24,8 @@ export function LoginPage() {
   });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-      <h1 className="text-2xl font-bold">Please Login to use this application</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen gap-6 mx-20">
+      <h1 className="text-2xl font-bold text-center">Please Login to use this application</h1>
       <GoogleLogin
         // The onSuccess callback is called when the user successfully logs in with Google
         onSuccess={(response) => {

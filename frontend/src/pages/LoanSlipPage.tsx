@@ -21,7 +21,7 @@ export function LoanSlipPage() {
   }, []);
 
   const previousDevice = allDevices
-    .filter(d => d.currentUser === employee?.displayName && d.id !== formData?.id)
+    .filter(d => d.previousUser === employee?.displayName)
     .sort((a, b) => new Date(b.loanDate).getTime() - new Date(a.loanDate).getTime())[0];
 
   // If formData or employee is not available in the location state, 
@@ -57,7 +57,7 @@ export function LoanSlipPage() {
         <button
           className="bg-gray-200 w-full rounded-lg p-2 text-sm font-medium"
           onClick={() => navigate(`/device/${formData.id}/edit`)}>
-          PC一覧へ
+          戻る
         </button>
       </div>
       <LoanSlipDocument device={formData} employee={employee} loanDate={loanDate} previousDevice={previousDevice} />

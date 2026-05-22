@@ -27,8 +27,8 @@ export function LoanSlipDocument({ device, employee, loanDate, previousDevice }:
       <div className="mb-4">
         <p className="text-lg"><span className="font-bold">名前:</span> {employee.displayName ?? 'なし'}</p>
         <p className="text-lg"><span className="font-bold">日付:</span> {year}年 {month}月 {day}日</p>
-        <p className="text-lg"><span className="font-bold">品名:</span> TOMATO {device.id ?? 'なし'}</p>
-        <p className="text-lg"><span className="font-bold">以前使用した品名:</span> TOMATO {previousDevice?.id ?? 'なし'}</p>
+        <p className="text-lg"><span className="font-bold">品名:</span> {device.id ?? 'なし'}</p>
+        <p className="text-lg"><span className="font-bold">以前使用した品名:</span> {previousDevice?.id ?? 'なし'}</p>
         <p className="text-lg"><span className="font-bold">使用場所:</span> {device.location ?? 'なし'}</p>
       </div>
       <div className="mt-8">

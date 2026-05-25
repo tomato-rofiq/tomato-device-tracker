@@ -11,7 +11,7 @@ export interface Device {
   status: DeviceStatus;                 // C: 状況
   classification: DeviceClassification; // D: 分類
   purpose: DevicePurpose;               // E: 用途
-  category: DeviceCategory;               // F: 区分
+  category: DeviceCategory;             // F: 区分
   currentUser: string;                  // I: 現在使用者
   employmentStatus: string;             // J: 在/退職
   previousUser: string;                 // K: 以前使用者

@@ -17,7 +17,7 @@ export function ScanPage() {
     if (!deviceId) return;
 
     if (isAuthenticated) {
-      navigate(`/device/${deviceId}`);
+      navigate(`/device/${deviceId}/edit`);
     } else {
       navigate('/login');
     }

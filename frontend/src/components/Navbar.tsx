@@ -49,9 +49,9 @@ export function Navbar() {
             <button onClick={() => handleNavigate('/devices')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
               PC一覧
             </button>
-            <button onClick={() => handleNavigate('/search')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
+            {/* <button onClick={() => handleNavigate('/search')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
               社員検索
-            </button>
+            </button> */}
             <button onClick={() => handleNavigate('/qr')} className="px-6 py-3 text-left hover:bg-gray-50 border-b border-gray-100">
               QR生成
             </button>

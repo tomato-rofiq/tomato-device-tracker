@@ -5,7 +5,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDevice } from "../hooks/useDevice"
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LoanSlipDocument } from "../components/LoanSlipDocument";
 import { StatusScreen } from "../components/StatusScreen";
 
@@ -15,6 +15,7 @@ export function LoanSlipPage() {
   const { formData, employee, originalDevice } = useLocation().state || {};
   const loanDate = new Date().toISOString().split('T')[0];
   const isSaving = useRef(false); // to prevent multiple clicks on the save button
+  const [lastSavedAt, setLastSavedAt] = useState<string | null>(null);
 
   useEffect(() => {
     fetchAllDevices();
@@ -34,28 +35,34 @@ export function LoanSlipPage() {
     // original device is for comparing the before and after data, 
     // if it is not provided, we will use the current device state as the before device
     await updateDevice({ ...formData, loanDate }, originalDevice);
-    navigate('/device/' + formData.id);
+    setLastSavedAt(new Date().toLocaleString('ja-JP'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   if (loading || error) return <StatusScreen loading={loading} error={error} />;
 
   return (
     <div className="min-h-screen pt-20 px-6 pb-6">
+      {lastSavedAt && (
+        <div className="bg-green-50 border border-green-200 text-green-800 text-sm px-4 py-2 rounded-lg mb-2">
+          更新しました — {lastSavedAt}
+        </div>
+      )}
       <div className="flex gap-2 my-2">
         <button
-          className="bg-blue-500 text-white w-full rounded-lg p-2 text-sm font-medium"
+          className="bg-blue-500 text-white w-full rounded-lg p-2 text-sm font-medium disabled:bg-gray-300"
           onClick={handleSave}
-          disabled={loading}
+          disabled={loading || !!lastSavedAt}
         >
           {loading ? '更新中...' : '更新'}
         </button>
         <button
-          className="bg-gray-200 w-full rounded-lg p-2 text-sm font-medium"
+          className="bg-blue-500 text-white w-full rounded-lg p-2 text-sm font-medium"
           onClick={window.print}>
           印刷
         </button>
         <button
-          className="bg-gray-200 w-full rounded-lg p-2 text-sm font-medium"
+          className="bg-blue-500 text-white w-full rounded-lg p-2 text-sm font-medium"
           onClick={() => navigate(`/device/${formData.id}/edit`)}>
           戻る
         </button>

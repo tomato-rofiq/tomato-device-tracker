@@ -69,6 +69,7 @@ export function DeviceEditPage() {
   };
 
   if (!device && (loading || employeesLoading)) return <StatusScreen loading={loading} error={null} />;
+  if (!device && error) return <StatusScreen error={error} />;
   if (!formData) return null;
 
   return (

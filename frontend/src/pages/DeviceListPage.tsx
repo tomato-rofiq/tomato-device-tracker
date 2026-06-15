@@ -100,7 +100,7 @@ export function DeviceListPage() {
             </tr>
           </thead>
           <tbody>
-            {allDevices.map((device, i) => (
+            {allDevices.map((device) => (
               <tr key={device.id} className="border-t border-gray-200 hover:bg-gray-50">
                 <td className="px-3 py-2 font-medium text-gray-700">{device.id}</td>
                 {DESKTOP_COLUMNS.map(col => (

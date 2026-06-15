@@ -4,12 +4,10 @@ import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { ScanPage } from './pages/ScanPage';
-import { DeviceDetailPage } from './pages/DeviceDetailPage';
 import { QRGeneratorPage } from './pages/QRGeneratorPage';
 import { DeviceListPage } from './pages/DeviceListPage';
 import { QRPrintPage } from './pages/QRPrintPage';
 import { DeviceEditPage } from './pages/DeviceEditPage';
-import { EmployeeSearchPage } from './pages/EmployeeSearchPage';
 import { LoanSlipPage } from './pages/LoanSlipPage';
 import { DeviceUpdateHistoryPage } from './pages/DeviceUpdateHistoryPage';
 
@@ -24,11 +22,6 @@ function App() {
           <Routes>
             <Route path="/" element={<ScanPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/device/:id" element={ // route to display the details of a device
-              <ProtectedRoute>
-                <DeviceDetailPage />
-              </ProtectedRoute>
-            } />
             <Route path="/device/:id/qr" element={ // route to print the QR code for a device
               <ProtectedRoute>
                 <QRPrintPage />
@@ -57,11 +50,6 @@ function App() {
             <Route path="/devices" element={ // route to display the list of devices
               <ProtectedRoute>
                 <DeviceListPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/search" element={ // route to search for employees
-              <ProtectedRoute>
-                <EmployeeSearchPage />
               </ProtectedRoute>
             } />
 

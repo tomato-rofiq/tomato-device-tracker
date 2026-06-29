@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useAuth } from './useAuth';
 import { getAllDevicesService, getDeviceService, updateDeviceService } from '../services/deviceService';
 import { logUpdateService } from '../services/historyService';
+import { log } from '../services/logger';
 import type { Device } from '../types/device.types';
 
 // this is a helper function to compute the difference between 
@@ -33,6 +34,7 @@ export function useDevice() {
       const data = await getDeviceService(id);
       setDevice(data);
     } catch (err) {
+      log.error('fetchDevice failed', id, err);
       setError('Failed to fetch device');
     } finally {
       setLoading(false);
@@ -47,6 +49,7 @@ export function useDevice() {
       const data = await getAllDevicesService();
       setAllDevices(data);
     } catch (err) {
+      log.error('fetchAllDevices failed', err);
       setError('Failed to fetch devices');
     } finally {
       setLoading(false);
@@ -65,10 +68,12 @@ export function useDevice() {
       if (beforeDevice && user) {
         const changes = computeDiff(beforeDevice, payload);
         if (Object.keys(changes).length > 0) {
+          log.info('device updated', payload.id, 'by', user.email, changes);
           await logUpdateService(payload.id, user.email, changes);
         }
       }
-    } catch {
+    } catch (err) {
+      log.error('updateDevice failed', payload.id, err);
       setError('Failed to update device');
     } finally {
       setLoading(false);

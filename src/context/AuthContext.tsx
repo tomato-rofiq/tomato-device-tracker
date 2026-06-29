@@ -4,6 +4,7 @@ import { createContext, useState, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import type { GoogleUser } from '../types/user.types';
+import { log } from '../services/logger';
 
 // The structure of the decoded JWT token from Google
 interface DecodedToken {
@@ -34,9 +35,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const decoded = jwtDecode<DecodedToken>(token);
       if (decoded.exp * 1000 < Date.now()) { // Check if the token has expired (typically exp is 1hr from issuance)
+        log.info('auth: stored token expired, clearing');
         sessionStorage.removeItem('auth_token');
         return null;
       }
+      log.debug('auth: restored session for', decoded.email);
       return {
         googleId: decoded.sub,
         email: decoded.email,
@@ -44,7 +47,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         imageUrl: decoded.picture,
         accessToken: token,
       };
-    } catch {
+    } catch (err) {
+      log.warn('auth: failed to decode stored token', err);
       return null;
     }
   });
@@ -53,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback((token: string) => {
     sessionStorage.setItem('auth_token', token); // Store the JWT token in session storage
     const decoded = jwtDecode<DecodedToken>(token);
+    log.info('auth: login', decoded.email);
     setUser({
       googleId: decoded.sub,
       email: decoded.email,
@@ -64,6 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Function to handle logout by clearing the user state
   const logout = useCallback(() => {
+    log.info('auth: logout');
     sessionStorage.removeItem('auth_token');
     setUser(null);
   }, []);
